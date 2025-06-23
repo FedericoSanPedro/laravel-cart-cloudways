@@ -22,7 +22,7 @@
             {{ $product->name }}
         </h2>
         
-        <p class="font-thin text-xs text-black pb-8">
+        <p class="font-bold text-xs text-black pb-8">
             {{ $product->details }}
         </p>
 

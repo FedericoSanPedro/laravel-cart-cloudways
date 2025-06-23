@@ -3,7 +3,7 @@
 @section('content')
 <div 
     class="grid grid-cols-1 m-auto w-full h-screen bg-dunes bg-cover bg-center"
-    style="background-image: url('https://cdn.pixabay.com/photo/2016/11/21/15/46/computer-1846056_1280.jpg')">
+    style="background-image: url('https://cdn.pixabay.com/photo/2019/07/14/16/29/pen-4337524_1280.jpg')">
     <div class="flex text-gray-100">
         <div class="m-auto pb-16 sm:m-auto w-4/5 block text-center">
             <h1 class="sm:text-white text-3xl sm:text-5xl uppercase font-normal text-shadow-md">
