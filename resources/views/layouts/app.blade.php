@@ -92,6 +92,38 @@
         </header>
         @yield('content')
 
+        <!-- Error Messages Only -->
+        @if(session('error'))
+            <div id="error-message" class="fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform transition-all duration-300 translate-x-full">
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                    </svg>
+                    {{ session('error') }}
+                </div>
+            </div>
+        @endif
+
     </div>
+
+    <script>
+        // Auto-hide error messages after 5 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            const errorMessage = document.getElementById('error-message');
+            
+            if (errorMessage) {
+                setTimeout(() => {
+                    errorMessage.classList.remove('translate-x-full');
+                    setTimeout(() => {
+                        errorMessage.classList.add('translate-x-full');
+                    }, 100);
+                }, 100);
+                
+                setTimeout(() => {
+                    errorMessage.classList.add('translate-x-full');
+                }, 5000);
+            }
+        });
+    </script>
 </body>
 </html>

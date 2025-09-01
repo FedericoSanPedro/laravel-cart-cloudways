@@ -16,6 +16,10 @@ class CartController extends Controller
         $cartItems = session()->get('cartItems', []);
 
         if(isset($cartItems[$id])){
+            // Check if adding one more would exceed the limit of 10
+            if($cartItems[$id]['quantity'] >= 10){
+                return redirect()->back()->with('error', 'Maximum quantity limit of 10 reached for this product. You cannot add more.');
+            }
             $cartItems[$id]['quantity']++;
         }
         else{
@@ -37,11 +41,17 @@ class CartController extends Controller
     {
         if($request->id && $request->quantity){
             $cartItems = session()->get('cartItems');
+            
+            // Ensure quantity doesn't exceed 10
+            if($request->quantity > 10){
+                return redirect()->back()->with('error', 'Maximum quantity limit is 10 per product.');
+            }
+            
             $cartItems[$request->id]["quantity"] = $request->quantity;
             session()->put('cartItems', $cartItems);
         }
 
-        return redirect()->back()->with('success', 'Product added to cart!');
+        return redirect()->back()->with('success', 'Cart updated successfully!');
     }
 
     public function delete(Request $request){

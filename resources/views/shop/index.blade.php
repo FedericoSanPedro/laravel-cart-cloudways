@@ -12,28 +12,53 @@
 
 <div class="grid sm:grid-cols-4 gap-8 pt-20 mx-auto w-4/5">
     @foreach ($products as $product)
-    <div class="mx-auto">
+    <div class="mx-auto flex flex-col h-full">
         <img 
             src="{{ asset($product->image_path) }}" 
             alt="{{ $product->name }}" 
-            style="height:200px !important;">
+            class="w-full h-48 object-cover rounded-lg shadow-lg mb-4">
 
-        <h2 class="text-xl text-gray-600 font-bold pb-8">
-            {{ $product->name }}
-        </h2>
-        
-        <p class="font-bold text-xs text-black pb-8">
-            {{ $product->details }}
-        </p>
+        <div class="flex flex-col flex-grow">
+            <h2 class="text-xl text-gray-600 font-bold pb-4">
+                {{ $product->name }}
+            </h2>
+            
+            <p class="font-bold text-xs text-black pb-4 flex-grow">
+                {{ $product->details }}
+            </p>
 
-        <p class="font-bold text-l text-black pb-8">
-           Price: <span class="text-red-500">$ {{ $product->price }}</span>
-        </p>
+            <p class="font-bold text-lg text-black pb-6">
+               Price: <span class="text-red-500">$ {{ $product->price }}</span>
+            </p>
 
-        <a  href="/shop/{{ $product->id }}"
-            class="px-6 py-2 text-l uppercase text-white font-bold bg-blue-600 rounded-full w-full">
-            Read more...
-        </a>
+            <div class="mt-auto space-y-2">
+                @php
+                    $cartItems = session()->get('cartItems', []);
+                    $currentQuantity = isset($cartItems[$product->id]) ? $cartItems[$product->id]['quantity'] : 0;
+                @endphp
+                
+                @if($currentQuantity > 0)
+                    <div class="text-center">
+                        <p class="text-xs text-gray-600">
+                            In cart: <span class="font-bold text-blue-600">{{ $currentQuantity }}</span>
+                            @if($currentQuantity >= 10)
+                                <span class="text-red-600 font-medium">(Max reached)</span>
+                            @elseif($currentQuantity >= 8)
+                                <span class="text-orange-600 font-medium">({{ 10 - $currentQuantity }} left)</span>
+                            @endif
+                        </p>
+                    </div>
+                @endif
+                
+                <a  href="/shop/{{ $product->id }}"
+                    class="px-6 py-3 text-base uppercase text-white font-bold rounded-full w-full block text-center transition-colors duration-200"
+                    style="background-color: #f97316;"
+                    onmouseover="this.style.backgroundColor='#ea580c'"
+                    onmouseout="this.style.backgroundColor='#f97316'">
+                    Read more...
+                </a>
+            </div>
+        </div>
     </div>
     @endforeach
     

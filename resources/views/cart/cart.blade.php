@@ -99,6 +99,11 @@
                                         @endfor
                                     </select>
                                 </form>
+                                @if($value['quantity'] >= 10)
+                                    <div class="mt-2 text-xs text-red-600 font-medium">
+                                        ⚠️ Maximum quantity reached
+                                    </div>
+                                @endif
                             </td>
                             
                             <td class="px-6 py-4 whitespace-nowrap">
